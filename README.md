@@ -28,8 +28,8 @@ bun run check          # format:check + typecheck + test + build
 ## Layout
 
 ```
-site-dump/                 mirror of the source site (see "Regenerating")
-extracted/                 intermediate CSS split, not shipped
+site-dump/                 mirror of the source site — gitignored, regenerate locally
+extracted/                 intermediate CSS split — gitignored, regenerate locally
 scripts/                   fetch + conversion pipeline
 src/
   layouts/    Base.astro, Legal.astro
@@ -84,6 +84,9 @@ compiled bundle would leave a dead build, so instead:
 sheets are global once de-scoped, so collisions would otherwise override silently.
 
 ## Regenerating from the source site
+
+`site-dump/`, `extracted/` and `shots/` are gitignored, so a fresh clone has none of them.
+Recreate them before running any extractor:
 
 ```bash
 bun run site:fetch      # mirror routes + assets into site-dump/

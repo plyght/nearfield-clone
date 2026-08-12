@@ -1,17 +1,25 @@
 # build output
 dist/
+
 # generated types
 .astro/
 
 # dependencies
 node_modules/
 
+# Mirror of the source site and everything derived from it. Not redistributed
+# here; regenerate locally with `bun run site:fetch && bun run site:unminify`.
+site-dump/
+extracted/
+
+# Screenshot captures (local and original) from the verification harness
+shots/
+
 # logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-
 
 # environment variables
 .env
@@ -22,7 +30,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
-dist/
-node_modules/
-shots/
-.astro/
+
+# vercel
+.vercel/
