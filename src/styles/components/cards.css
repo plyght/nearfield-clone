@@ -76,15 +76,33 @@
 }
 
 .app-window {
+  /* macOS semantic colours. Dark is what the source shipped; light mirrors it
+     with the AppKit light-mode equivalents (windowBackgroundColor,
+     controlBackgroundColor, labelColor at 85%, secondaryLabelColor at 55%,
+     separatorColor at 10%). Traffic lights, the purple header and the
+     controlAccentColor blue are fixed in both themes, as they are on macOS. */
+  --win-bg: #20201f;
+  --win-border: rgba(255, 255, 255, 0.12);
+  --win-fg: #f5f5f7;
+  --win-group: #ffffff08;
+  --win-divider: #ffffff0d;
+  --win-strong: #ffffffd9;
+  --win-small: #ffffff8c;
+  --win-switch-off: #ffffff24;
+  --win-btn-bg: #ffffff0f;
+  --win-btn-fg: #f5f5f5;
+  --win-balance-letter: #ffffff61;
+  --win-slider-track: #ffffff1a;
+  --win-tertiary: #ffffff3d;
   position: absolute;
   inset: 0 0 auto;
   width: 307px;
   height: 765px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--win-border);
   border-radius: 16px;
-  background: #20201f;
-  color: #f5f5f7;
+  background: var(--win-bg);
+  color: var(--win-fg);
   box-shadow: 0 26px 58px -24px #000000c2;
   transform: translate3d(0, calc(var(--scroll-progress) * var(--app-window-travel) * -1), 0);
   will-change: transform;
@@ -176,7 +194,7 @@
   overflow: hidden;
   flex: none;
   border-radius: 12px;
-  background: #ffffff08;
+  background: var(--win-group);
 }
 
 .settings-row {
@@ -197,7 +215,7 @@
 }
 
 .settings-row strong {
-  color: #ffffffd9;
+  color: var(--win-strong);
   font-size: 13px;
   font-weight: 510;
   letter-spacing: 0;
@@ -205,7 +223,7 @@
 }
 
 .settings-row small {
-  color: #ffffff8c;
+  color: var(--win-small);
   font-size: 11px;
   font-weight: 510;
   line-height: 14px;
@@ -214,7 +232,7 @@
 .settings-divider {
   height: 1px;
   margin: 0 10px;
-  background: #ffffff0d;
+  background: var(--win-divider);
 }
 
 .detail-row {
@@ -225,7 +243,7 @@
 
 .settings-label {
   margin: 8px 0 0;
-  color: #fff;
+  color: var(--win-fg);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -238,7 +256,7 @@
   height: 16px;
   flex: 0 0 auto;
   border-radius: 999px;
-  background: #ffffff24;
+  background: var(--win-switch-off);
 }
 
 .mac-switch.on {
@@ -264,8 +282,8 @@
   flex: 0 0 auto;
   border-radius: 6px;
   padding: 4px 9px;
-  background: #ffffff0f;
-  color: #f5f5f5;
+  background: var(--win-btn-bg);
+  color: var(--win-btn-fg);
   font-size: 11px;
   font-weight: 510;
   line-height: 16px;
@@ -293,7 +311,7 @@
 }
 
 .balance-control b {
-  color: #ffffff61;
+  color: var(--win-balance-letter);
   font-size: 9px;
 }
 
@@ -302,7 +320,7 @@
   flex: 1;
   height: 4px;
   border-radius: 4px;
-  background: linear-gradient(90deg, #007aff 50%, #ffffff1a 50%);
+  background: linear-gradient(90deg, #007aff 50%, var(--win-slider-track) 50%);
 }
 
 .slider:after {
@@ -368,7 +386,7 @@
   width: 11px;
   height: 11px;
   place-items: center;
-  border: 0.5px solid #20201f;
+  border: 0.5px solid var(--win-bg);
   border-radius: 50%;
   background: #007aff;
   color: #fff;
@@ -413,7 +431,7 @@
 }
 
 .about-row small {
-  color: #fff3;
+  color: var(--win-tertiary);
   font-size: 11px;
 }
 
@@ -456,4 +474,23 @@
   .app-window {
     transform: translate3d(-50%, -110px, 0);
   }
+}
+
+html[data-theme="light"] .app-window {
+  --win-bg: #ececec;
+  --win-border: rgba(0, 0, 0, 0.12);
+  --win-fg: #000000d9;
+  --win-group: #ffffff;
+  --win-divider: #0000001a;
+  --win-strong: #000000d9;
+  --win-small: #0000008c;
+  --win-switch-off: #78788029;
+  --win-btn-bg: #ffffff;
+  --win-btn-fg: #000000d9;
+  --win-balance-letter: #00000061;
+  --win-slider-track: #0000001f;
+  --win-tertiary: #00000042;
+  box-shadow:
+    0 26px 58px -24px #00000059,
+    0 0 0 0.5px #00000014;
 }
