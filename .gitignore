@@ -37,3 +37,6 @@ pnpm-debug.log*
 # superdetermine internal store
 .sdt/
 .vercel
+
+# editor config; symlink points outside the repo
+.cursor/
