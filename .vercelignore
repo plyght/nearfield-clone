@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.sdt/
+
+# Source mirror and everything derived from it — not needed to build
+site-dump/
+extracted/
+shots/

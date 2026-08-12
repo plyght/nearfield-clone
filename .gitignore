@@ -36,3 +36,4 @@ pnpm-debug.log*
 
 # superdetermine internal store
 .sdt/
+.vercel
