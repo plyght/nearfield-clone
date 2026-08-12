@@ -1,0 +1,75 @@
+---
+import Base from "../layouts/Base.astro";
+import FaqItem from "../components/FaqItem.astro";
+import BottomCta from "../components/BottomCta.astro";
+import "../styles/components/page-styles.css";
+
+// Placeholder copy. The original answers are the site owner's writing and were
+// not carried over — swap these for your own before publishing.
+const FAQS = [
+  {
+    question: "What is Nearfield?",
+    answer:
+      "A native Mac app that pairs two external displays into a single stereo output, so the left panel carries the left channel and the right panel the right.",
+  },
+  {
+    question: "What do I need to use it?",
+    answer:
+      "Two supported displays connected to the same Mac, and a recent version of macOS. No extra hardware or cabling is involved.",
+  },
+  {
+    question: "How does it work under the hood?",
+    answer:
+      "The app installs a virtual audio device. Anything routed to it is split into two channels and handed to each display's own output.",
+  },
+  {
+    question: "Does it add latency or change the sound?",
+    answer:
+      "Processing is limited to channel routing, so there is no resampling or colouring of the signal beyond what the displays already do.",
+  },
+  {
+    question: "Is Nearfield open source?",
+    answer: "The application source is published on GitHub under a permissive licence.",
+  },
+  {
+    question: "How do I uninstall it?",
+    answer:
+      "The settings window has a control that removes the virtual driver, after which the app itself can be deleted normally.",
+  },
+];
+---
+
+<Base
+  title="FAQs — Nearfield"
+  description="Answers to common questions about pairing two displays into a stereo system with Nearfield."
+  intro
+>
+  <main id="main" class="flex flex-col gap-4 pt-2">
+    <section
+      class="mx-auto w-full max-w-[720px] px-5 pt-10 sm:px-6 sm:pt-16"
+      aria-labelledby="faq-title"
+    >
+      <h1
+        id="faq-title"
+        class="faq-item text-[clamp(28px,4.6vw,40px)] font-semibold leading-[1.08] tracking-[-0.025em] text-white"
+      >
+        Frequently asked questions
+      </h1>
+      <p class="faq-item mt-3 text-[15px] leading-[1.4] tracking-[-0.01em] text-muted">
+        What to know before you widen your desk.
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3">
+        {FAQS.map((faq) => <FaqItem question={faq.question}>{faq.answer}</FaqItem>)}
+      </div>
+    </section>
+
+    <BottomCta />
+  </main>
+</Base>
+
+<script>
+  import { initFaqAccordion } from "../scripts/faqAccordion";
+
+  initFaqAccordion();
+</script>

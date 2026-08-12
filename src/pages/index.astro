@@ -1,0 +1,22 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import FeatureCards from "../components/FeatureCards.astro";
+import CompanionCard from "../components/CompanionCard.astro";
+import FeatureGrid from "../components/FeatureGrid.astro";
+import BottomCta from "../components/BottomCta.astro";
+---
+
+<Base
+  title="Nearfield — Turn two Studio Displays into true stereo speakers"
+  description="Nearfield pairs your two Apple Studio Displays into one wide, true-stereo speaker system. A superfast, open-source native Mac app."
+  intro
+>
+  <main id="main" class="flex flex-col gap-4 pt-2">
+    <Hero />
+    <FeatureCards />
+    <CompanionCard />
+    <FeatureGrid />
+    <BottomCta />
+  </main>
+</Base>

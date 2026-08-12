@@ -1,0 +1,38 @@
+---
+import Legal from "../layouts/Legal.astro";
+
+// Placeholder copy — replace with your own policy before publishing.
+const sections = [
+  {
+    id: "eligibility",
+    heading: "What qualifies",
+    body: "Describe the window during which a refund can be requested and any conditions attached.",
+  },
+  {
+    id: "how-to-request",
+    heading: "How to request one",
+    body: "Explain where to write, and what details to include so the request can be matched to a purchase.",
+  },
+  {
+    id: "processing",
+    heading: "How long it takes",
+    body: "Set expectations for when the refund is issued and when it appears on the original payment method.",
+  },
+  {
+    id: "questions",
+    heading: "Questions",
+    body: "Give a contact address for anything the policy does not cover.",
+  },
+];
+---
+
+<Legal
+  title="Refund Policy — Nearfield"
+  description="How refunds work for Nearfield purchases."
+  heading="Refund Policy"
+  intro="Placeholder policy — replace with your own text before publishing."
+  eyebrow="No hassle"
+  highlightHeading="Ask, and it's handled."
+  highlightBody="Summarise your refund stance in a sentence or two here."
+  sections={sections}
+/>

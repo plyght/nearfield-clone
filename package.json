@@ -1,0 +1,37 @@
+{
+  "name": "nearfield-clone",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "prettier --write \"src/**/*.{astro,ts,css}\" \"scripts/**/*.mjs\"",
+    "format:check": "prettier --check \"src/**/*.{astro,ts,css}\" \"scripts/**/*.mjs\"",
+    "lint": "astro check --minimumSeverity warning",
+    "typecheck": "astro check --minimumSeverity error",
+    "test": "bun test",
+    "check": "bun run format:check && bun run typecheck && bun run test && bun run build",
+    "site:fetch": "bun scripts/fetch-site.mjs",
+    "site:unminify": "bun scripts/unminify.mjs",
+    "site:css": "bun scripts/split-css.mjs && bun scripts/build-global-css.mjs",
+    "site:assets": "bun scripts/copy-assets.mjs",
+    "site:shots": "bun scripts/screenshot-diff.mjs",
+    "site:smoke": "bun scripts/smoke-check.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.2.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/bun": "^1.3.14",
+    "playwright": "^1.62.1",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^6"
+  }
+}

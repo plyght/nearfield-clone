@@ -1,0 +1,39 @@
+---
+import Legal from "../layouts/Legal.astro";
+
+// Placeholder copy. The original policy text is the site owner's own writing and
+// was not carried over — replace all of this with your own before publishing.
+const sections = [
+  {
+    id: "nearfield-app",
+    heading: "The Nearfield app",
+    body: "Describe here what the desktop application stores locally, and confirm whether any of it leaves the machine.",
+  },
+  {
+    id: "website",
+    heading: "This website",
+    body: "Describe any analytics or logging the site performs, what is retained, and for how long.",
+  },
+  {
+    id: "updates",
+    heading: "Software updates",
+    body: "Explain what information the update check sends, such as the current version and platform.",
+  },
+  {
+    id: "contact",
+    heading: "Getting in touch",
+    body: "Give a contact address for privacy questions and describe how requests are handled.",
+  },
+];
+---
+
+<Legal
+  title="Privacy — Nearfield"
+  description="How the Nearfield app and website handle your data."
+  heading="Privacy"
+  intro="Placeholder policy — replace with your own text before publishing."
+  eyebrow="Privacy by default"
+  highlightHeading="No accounts. No profiling. No marketing."
+  highlightBody="Summarise your privacy stance in a sentence or two here."
+  sections={sections}
+/>

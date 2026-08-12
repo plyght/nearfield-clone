@@ -1,0 +1,26 @@
+---
+interface Props {
+  question: string;
+}
+
+const { question } = Astro.props;
+---
+
+<details class="faq-item faq-card overflow-hidden rounded-card bg-surface" data-faq>
+  <summary
+    class="flex cursor-pointer select-none items-center justify-between gap-4 p-5 text-[15px] font-medium tracking-[-0.01em] text-white/90 transition-colors duration-200 hover:text-white sm:p-6 sm:text-[16px]"
+  >
+    {question}
+    <span class="faq-plus relative block size-4 shrink-0 text-white/40" aria-hidden="true">
+      <i class="absolute left-0 top-1/2 h-[1.5px] w-full -translate-y-1/2 rounded-full bg-current"
+      ></i>
+      <i class="absolute left-1/2 top-0 h-full w-[1.5px] -translate-x-1/2 rounded-full bg-current"
+      ></i>
+    </span>
+  </summary>
+  <div class="faq-body" data-faq-body>
+    <p class="px-5 pb-5 text-[14px] leading-[1.55] tracking-[-0.01em] text-muted sm:px-6 sm:pb-6">
+      <slot />
+    </p>
+  </div>
+</details>

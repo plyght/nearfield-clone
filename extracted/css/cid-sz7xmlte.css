@@ -1,0 +1,29 @@
+.footer-link[data-astro-cid-sz7xmlte] {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.16s ease;
+}
+
+.footer-link[data-astro-cid-sz7xmlte]:hover {
+  color: var(--color-fg);
+}
+
+.footer-set[data-astro-cid-sz7xmlte] {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  white-space: nowrap;
+}
+
+.footer-dot[data-astro-cid-sz7xmlte] {
+  opacity: 0.55;
+  user-select: none;
+}
+
+@media (max-width: 639px) {
+  .footer-dot[data-astro-cid-sz7xmlte] {
+    display: none;
+  }
+}

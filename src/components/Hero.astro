@@ -1,0 +1,72 @@
+---
+import BuyButton from "./BuyButton.astro";
+import Logo from "./Logo.astro";
+---
+
+<div class="mx-auto w-full max-w-[980px] px-5 sm:px-6">
+  <section
+    data-wave-host
+    data-keep-dark
+    class="group relative isolate overflow-hidden rounded-card"
+    style="background: radial-gradient(125% 150% at 16% 52%, #ff7d33 0%, #f2500c 46%, #d6400a 100%);"
+  >
+    <!-- GPU wave (covers the gradient once it paints) -->
+    <canvas data-wave class="wave-canvas absolute inset-0 h-full w-full" aria-hidden="true"
+    ></canvas>
+
+    <!-- subtle inner border + bottom vignette for text legibility -->
+    <div
+      class="pointer-events-none absolute inset-0 z-10 rounded-card ring-1 ring-inset ring-white/10"
+    >
+    </div>
+
+    <div
+      class="relative z-20 flex min-h-[440px] flex-col justify-between gap-10 p-7 sm:min-h-[500px] sm:p-9"
+    >
+      <h1
+        class="max-w-[900px] text-[clamp(42px,6.9vw,66px)] font-semibold leading-[1.08] tracking-[-0.025em] text-white drop-shadow-[0_1px_12px_rgba(120,40,0,0.25)]"
+        data-hero-headline
+      >
+        One stereo image across both of your
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="inline-block size-[0.78em] translate-y-[-0.14em]"
+          aria-hidden="true"
+        >
+          <path
+            d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.464 2.338-1.282 3.714 1.345.104 2.715-.688 3.57-1.701z"
+          ></path>
+        </svg>
+        Studio Displays.
+      </h1>
+
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div class="mb-3 flex flex-col gap-6">
+          <Logo class="size-9 text-white drop-shadow-[0_2px_8px_rgba(120,40,0,0.35)]" />
+          <span class="text-2xl font-semibold tracking-[-0.02em] text-white">Nearfield</span>
+        </div>
+
+        <BuyButton variant="hero" label="Get for Mac" />
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  import { initWaveCanvas } from "../scripts/waveCanvas";
+  import { initHeroHeadline } from "../scripts/heroHeadline";
+
+  const teardowns: Array<() => void> = [];
+
+  document.querySelectorAll<HTMLCanvasElement>("canvas[data-wave]").forEach((canvas) => {
+    const host = canvas.closest<HTMLElement>("[data-wave-host]") ?? canvas.parentElement;
+    if (host) teardowns.push(initWaveCanvas(canvas, host));
+  });
+
+  initHeroHeadline();
+
+  document.addEventListener("astro:before-swap", () => {
+    while (teardowns.length) teardowns.pop()?.();
+  });
+</script>

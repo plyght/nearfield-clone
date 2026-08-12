@@ -1,0 +1,172 @@
+---
+import "../styles/components/cards.css";
+import "../styles/components/companion.css";
+
+/** Bullet points under the card copy. */
+const DETAILS = [
+  {
+    label: "No Microphone Access required",
+    paths: [
+      "M18.89 13.23A7.12 7.12 0 0 0 19 12v-2",
+      "M5 10v2a7 7 0 0 0 12 5",
+      "M15 9.34V5a3 3 0 0 0-5.68-1.33",
+      "M9 9v3a3 3 0 0 0 5.12 2.12",
+    ],
+    lines: [
+      { x1: "2", y1: "2", x2: "22", y2: "22" },
+      { x1: "12", y1: "19", x2: "12", y2: "22" },
+    ],
+    rects: [],
+  },
+  {
+    label: "Auto Reconnect / Display Detection",
+    paths: ["m9 10 2 2 4-4", "M12 17v4", "M8 21h8"],
+    lines: [],
+    rects: [{ width: "20", height: "14", x: "2", y: "3", rx: "2" }],
+  },
+  {
+    label: "Apple silicon · macOS Sonoma 14.x and newer",
+    paths: ["M2 20h20"],
+    lines: [],
+    rects: [{ width: "18", height: "12", x: "3", y: "4", rx: "2" }],
+  },
+];
+---
+
+<section class="companion-section mx-auto w-full max-w-[980px] px-5 sm:px-6" data-companion-section>
+  <article class="companion-card rounded-card bg-surface">
+    <header class="companion-copy">
+      <h2>Everything in One Place</h2>
+      <p>Manage your displays, routing, and driver from a simple native menu bar app.</p>
+
+      <ul class="companion-features" aria-label="App details">
+        {
+          DETAILS.map((detail) => (
+            <li>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                {detail.lines.map((line) => (
+                  <line x1={line.x1} x2={line.x2} y1={line.y1} y2={line.y2} />
+                ))}
+                {detail.rects.map((rect) => (
+                  <rect
+                    width={rect.width}
+                    height={rect.height}
+                    x={rect.x}
+                    y={rect.y}
+                    rx={rect.rx}
+                  />
+                ))}
+                {detail.paths.map((d) => (
+                  <path d={d} />
+                ))}
+              </svg>
+              {detail.label}
+            </li>
+          ))
+        }
+      </ul>
+    </header>
+
+    <!-- Static mock of the menu bar app's settings window. -->
+    <div class="app-stage" aria-hidden="true">
+      <div class="settings-window">
+        <div class="settings-header">
+          <div class="header-controls">
+            <div class="traffic-lights"><i></i><i></i><i></i></div>
+            <div class="page-indicator"><i></i><i></i></div>
+          </div>
+          <strong>Settings</strong>
+        </div>
+
+        <div class="settings-content">
+          <div class="settings-group">
+            <div class="settings-row">
+              <strong>Open at login</strong><span class="mac-switch on"><i></i></span>
+            </div>
+            <div class="settings-divider"></div>
+            <div class="settings-row detail-row">
+              <div>
+                <strong>Show Menubar App</strong><small
+                  >Open the application to show this screen again.</small
+                >
+              </div>
+              <span class="mac-switch on"><i></i></span>
+            </div>
+          </div>
+
+          <p class="settings-label">Sound</p>
+          <div class="settings-group">
+            <div class="settings-row balance-row">
+              <strong>Balance</strong>
+              <div class="balance-control">
+                <b>L</b><span class="slider"><i></i></span><b>R</b>
+              </div>
+            </div>
+            <div class="settings-divider"></div>
+            <div class="settings-row">
+              <strong>Test Sound</strong><span class="mac-button">Play</span>
+            </div>
+            <div class="settings-divider"></div>
+            <div class="settings-row">
+              <strong>Arrangement</strong><span class="mac-button">Swap Channels</span>
+            </div>
+          </div>
+
+          <div class="settings-group routing-group">
+            <div class="settings-row detail-row">
+              <div>
+                <strong>App Audio Routing</strong><small
+                  >Route selected apps based on their window location.</small
+                >
+              </div>
+              <span class="mac-switch on"><i></i></span>
+            </div>
+            <div class="settings-divider"></div>
+            <div class="settings-row app-row selected">
+              <span class="app-icon"><img src="/icon-safari.png" alt="" /><em>R</em></span>
+              <strong>Safari</strong>
+              <span class="mac-switch on"><i></i></span>
+            </div>
+            <div class="settings-divider"></div>
+            <div class="settings-row app-row">
+              <span class="app-icon"><img src="/icon-appletv.png" alt="" /><em>L</em></span>
+              <strong>Apple TV</strong>
+              <span class="mac-switch on"><i></i></span>
+            </div>
+          </div>
+
+          <p class="settings-label">Driver</p>
+          <div class="settings-group">
+            <div class="settings-row">
+              <strong>Status</strong>
+              <span class="driver-status"><i>✓</i><b>Installed</b><em>↻</em></span>
+            </div>
+            <div class="settings-divider"></div>
+            <div class="settings-row">
+              <strong>Remove Virtual Drivers</strong>
+              <span class="mac-button danger">Uninstall</span>
+            </div>
+          </div>
+
+          <div class="about-row">
+            <small>Version 0.1.37</small><span class="mac-button">↻ Check for Updates</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<script>
+  import { initCompanionScroll } from "../scripts/companionScroll";
+
+  initCompanionScroll();
+</script>

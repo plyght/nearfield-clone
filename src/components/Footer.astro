@@ -1,0 +1,91 @@
+---
+const version = "v0.1.37";
+const year = 2026;
+
+const links = [
+  { href: "/nearfield-vs-stereofuse", label: "Why Nearfield" },
+  { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
+  { href: "/refund-policy", label: "Refund Policy" },
+  { href: "mailto:support@trynearfield.com", label: "Contact Support" },
+];
+---
+
+<footer class="relative z-10 -mt-24 sm:-mt-28">
+  <div
+    class="mx-auto flex w-full max-w-[980px] flex-wrap items-center justify-center gap-x-3.5 gap-y-2 px-5 pb-9 text-[13px] tracking-[-0.01em] text-faint sm:px-6"
+  >
+    <p>© Nearfield {year} - {version}</p>
+
+    <nav class="footer-set flex items-center gap-3.5" aria-label="Contact">
+      <span class="footer-dot" aria-hidden="true">•</span>
+      <a class="footer-link" href="mailto:support@trynearfield.com" aria-label="Email support">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="size-[15px]"
+          aria-hidden="true"
+        >
+          <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+        </svg>
+      </a>
+      <a class="footer-link" href="https://x.com/k3muri" rel="me" aria-label="X (formerly Twitter)">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="size-[13px]" aria-hidden="true">
+          <path
+            d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
+          ></path>
+        </svg>
+      </a>
+    </nav>
+
+    {
+      links.map((link) => (
+        <span class="footer-set">
+          <span class="footer-dot" aria-hidden="true">
+            •
+          </span>
+          <a class="footer-link" href={link.href}>
+            {link.label}
+          </a>
+        </span>
+      ))
+    }
+  </div>
+</footer>
+
+<style>
+  .footer-link {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.16s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--color-fg);
+  }
+
+  .footer-set {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    white-space: nowrap;
+  }
+
+  .footer-dot {
+    opacity: 0.55;
+    user-select: none;
+  }
+
+  @media (max-width: 639px) {
+    .footer-dot {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,205 @@
+---
+import Base from "../layouts/Base.astro";
+import BottomCta from "../components/BottomCta.astro";
+import BuyButton from "../components/BuyButton.astro";
+import "../styles/components/compare.css";
+
+// Structure ported from the original comparison page; the wording is
+// placeholder. The original made specific competitive claims about a named
+// third-party product — write your own before publishing.
+const DECISIONS = [
+  {
+    nearfield: true,
+    topline: "Pick Nearfield if",
+    body: "You want the pair treated as one stereo device with no per-app setup.",
+  },
+  {
+    nearfield: false,
+    topline: "Pick the alternative if",
+    body: "You need a feature this app does not cover. Describe it here.",
+  },
+  {
+    nearfield: false,
+    topline: "Do it manually if",
+    body: "You are comfortable wiring up an aggregate device yourself.",
+  },
+  {
+    nearfield: false,
+    topline: "Do nothing if",
+    body: "A single display's built-in output is already good enough for you.",
+  },
+];
+
+const TABLE_ROWS = [
+  ["Setup", "Placeholder", "Placeholder"],
+  ["Per-app routing", "Placeholder", "Placeholder"],
+  ["Latency", "Placeholder", "Placeholder"],
+  ["Licence", "Placeholder", "Placeholder"],
+  ["Price", "Placeholder", "Placeholder"],
+];
+
+const MANUAL_STEPS = [
+  "Open Audio MIDI Setup and create a multi-output device.",
+  "Add both displays to it and confirm the sample rates match.",
+  "Select the new device as the system output.",
+];
+
+const TRADEOFFS = [
+  "Both panels receive the same signal rather than a split pair.",
+  "Volume keys may stop controlling the aggregate device.",
+  "The arrangement has to be rebuilt when a display is reconnected.",
+];
+
+const COMPARE_FAQS = [
+  {
+    question: "Can I try it before buying?",
+    answer: "Describe your trial or refund arrangement here.",
+  },
+  {
+    question: "Does it work with mixed display models?",
+    answer: "Explain which combinations are supported.",
+  },
+];
+---
+
+<Base
+  title="Why Nearfield — Nearfield"
+  description="How Nearfield compares to the alternatives for pairing two displays into a stereo system."
+  intro
+>
+  <main id="main" class="flex flex-col pt-2">
+    <section
+      class="compare-hero mx-auto w-full max-w-[980px] px-5 pt-12 sm:px-6 sm:pt-20"
+      aria-labelledby="compare-title"
+    >
+      <p class="compare-kicker compare-reveal">Comparison</p>
+      <h1 id="compare-title" class="compare-reveal">Which one should you use?</h1>
+      <p class="compare-lede compare-reveal">
+        A placeholder summary of how the options differ. Replace with your own assessment.
+      </p>
+    </section>
+
+    <section
+      class="decision-section mx-auto w-full max-w-[980px] px-5 pt-16 sm:px-6 sm:pt-24"
+      aria-labelledby="decision-title"
+    >
+      <div class="section-heading">
+        <p class="section-kicker">The short answer</p>
+        <h2 id="decision-title">Pick by what you actually need</h2>
+      </div>
+
+      <div class="decision-grid">
+        {
+          DECISIONS.map((decision) => (
+            <article
+              class={
+                decision.nearfield ? "decision-card decision-card--nearfield" : "decision-card"
+              }
+            >
+              <div class="decision-topline">{decision.topline}</div>
+              <div class="decision-bottom">{decision.body}</div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section
+      class="head-to-head mx-auto w-full max-w-[980px] px-5 pt-20 sm:px-6 sm:pt-28"
+      aria-labelledby="head-to-head-title"
+    >
+      <div class="section-heading">
+        <p class="section-kicker">Head to head</p>
+        <h2 id="head-to-head-title">Feature by feature</h2>
+      </div>
+
+      <div class="table-block">
+        <p class="table-title">At a glance</p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Feature</th>
+                <th scope="col">Nearfield</th>
+                <th scope="col">Alternative</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                TABLE_ROWS.map((row) => (
+                  <tr>
+                    <th scope="row">{row[0]}</th>
+                    <td>{row[1]}</td>
+                    <td>{row[2]}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="head-to-head-card">
+        <div class="head-to-head-copy">
+          <h3>Ready to try it?</h3>
+          <p>A short closing line goes here.</p>
+        </div>
+        <div class="head-to-head-action">
+          <BuyButton label="Get for Mac" />
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="manual-section mx-auto w-full max-w-[980px] px-5 pt-20 sm:px-6 sm:pt-28"
+      aria-labelledby="manual-title"
+    >
+      <div class="section-heading">
+        <p class="section-kicker">The manual route</p>
+        <h2 id="manual-title">Doing it yourself</h2>
+      </div>
+
+      <div class="manual-grid">
+        <ol class="manual-steps">
+          {MANUAL_STEPS.map((step) => <li>{step}</li>)}
+        </ol>
+
+        <div class="manual-tradeoffs">
+          <p class="manual-tradeoffs-title">What you give up</p>
+          <ul>
+            {TRADEOFFS.map((tradeoff) => <li>{tradeoff}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <p class="manual-note">A closing note about when the manual approach is worth it.</p>
+    </section>
+
+    <section
+      class="faq-section mx-auto w-full max-w-[720px] px-5 pt-20 sm:px-6 sm:pt-28"
+      aria-labelledby="compare-faq-title"
+    >
+      <div class="section-heading">
+        <p class="section-kicker">Questions</p>
+        <h2 id="compare-faq-title">Before you decide</h2>
+      </div>
+
+      <div class="faq-list">
+        {
+          COMPARE_FAQS.map((faq) => (
+            <div>
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="sources mx-auto w-full max-w-[720px] px-5 pt-16 sm:px-6">
+      <p>Cite your sources here.</p>
+    </section>
+
+    <BottomCta />
+  </main>
+</Base>

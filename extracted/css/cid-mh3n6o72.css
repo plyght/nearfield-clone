@@ -1,0 +1,175 @@
+.panel[data-astro-cid-mh3n6o72] {
+  position: fixed;
+  bottom: clamp(14px, 3vh, 28px);
+  right: clamp(14px, 3vw, 28px);
+  z-index: 80;
+  width: min(288px, calc(100vw - 28px));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: #141416db;
+  box-shadow: 0 22px 52px -24px #000000e6;
+  backdrop-filter: blur(18px);
+  color: #ffffffeb;
+  font:
+    500 12px/1.3 ui-sans-serif,
+    system-ui,
+    sans-serif;
+  overflow: hidden;
+}
+
+.panel[data-astro-cid-mh3n6o72][data-hidden="true"] {
+  display: none;
+}
+
+.panel-bar[data-astro-cid-mh3n6o72] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.panel[data-astro-cid-mh3n6o72][data-dragging="true"] .panel-bar[data-astro-cid-mh3n6o72] {
+  cursor: grabbing;
+}
+
+.panel-title[data-astro-cid-mh3n6o72] {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffffb8;
+}
+
+.panel-actions[data-astro-cid-mh3n6o72] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.panel[data-astro-cid-mh3n6o72] button[data-astro-cid-mh3n6o72].icon-btn {
+  padding: 3px 7px;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.panel[data-astro-cid-mh3n6o72] button[data-astro-cid-mh3n6o72].icon-btn[aria-pressed="true"] {
+  background: #fff3;
+  border-color: #ffffff4d;
+}
+
+.panel[data-astro-cid-mh3n6o72] button[data-astro-cid-mh3n6o72] {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: #ffffff0f;
+  padding: 4px 9px;
+  color: #ffffffd1;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease;
+}
+
+.panel[data-astro-cid-mh3n6o72] button[data-astro-cid-mh3n6o72]:hover {
+  background: #ffffff24;
+  color: #fff;
+}
+
+.panel-body[data-astro-cid-mh3n6o72] {
+  display: grid;
+  gap: 14px;
+  max-height: min(64vh, 520px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 12px;
+}
+
+.panel[data-astro-cid-mh3n6o72][data-collapsed="true"] .panel-body[data-astro-cid-mh3n6o72] {
+  display: none;
+}
+
+.group[data-astro-cid-mh3n6o72] {
+  display: grid;
+  gap: 8px;
+}
+
+.group[data-astro-cid-mh3n6o72] h4[data-astro-cid-mh3n6o72] {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff6;
+}
+
+.ctrl[data-astro-cid-mh3n6o72] {
+  display: grid;
+  grid-template-columns: 92px 1fr 40px;
+  align-items: center;
+  gap: 8px;
+}
+
+.ctrl[data-astro-cid-mh3n6o72] label[data-astro-cid-mh3n6o72] {
+  color: #ffffffc7;
+}
+
+.ctrl[data-astro-cid-mh3n6o72] input[data-astro-cid-mh3n6o72][type="range"] {
+  width: 100%;
+  min-width: 0;
+  accent-color: #fff;
+  touch-action: none;
+}
+
+.ctrl[data-astro-cid-mh3n6o72] input[data-astro-cid-mh3n6o72][type="color"] {
+  width: 40px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  justify-self: start;
+  grid-column: 2 / -1;
+}
+
+.ctrl[data-astro-cid-mh3n6o72] output[data-astro-cid-mh3n6o72] {
+  width: 40px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff80;
+}
+
+.ctrl[data-astro-cid-mh3n6o72] select[data-astro-cid-mh3n6o72] {
+  grid-column: 2 / -1;
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  background: #ffffff0f;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ctrl[data-astro-cid-mh3n6o72] select[data-astro-cid-mh3n6o72] option[data-astro-cid-mh3n6o72] {
+  color: #000;
+}
+
+@media (max-width: 560px) {
+  .panel[data-astro-cid-mh3n6o72] {
+    inset: auto 12px 12px !important;
+    width: auto !important;
+  }
+  .panel-bar[data-astro-cid-mh3n6o72] {
+    cursor: default;
+  }
+  .panel-body[data-astro-cid-mh3n6o72] {
+    max-height: 44vh;
+  }
+}

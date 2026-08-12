@@ -1,0 +1,93 @@
+---
+interface Props {
+  index: number;
+}
+
+const { index } = Astro.props;
+
+/** Dock icon slots, evenly spaced across the dock strip. */
+const DOCK_ICONS = [1.96696, 10.0392, 18.1114, 26.1836, 34.2558, 42.328];
+const DOCK_TRAILING_ICON = 52.3671;
+const DOCK_DIVIDER_X = 50.4986;
+
+const standGradientId = `stand-grad-${index}`;
+---
+
+<div class="display" data-display={index}>
+  <div class="panel">
+    <div class="screen">
+      <img
+        class="wallpaper"
+        src="/spatial-wallpaper.jpg"
+        alt=""
+        width="480"
+        height="309"
+        loading="lazy"
+        decoding="async"
+      />
+
+      <svg viewBox="0 0 24 24" fill="currentColor" class="apple" aria-hidden="true">
+        <path
+          d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.464 2.338-1.282 3.714 1.345.104 2.715-.688 3.57-1.701z"
+        ></path>
+      </svg>
+
+      <div class="status" aria-hidden="true">
+        <i></i><i></i><i></i><i></i>
+      </div>
+
+      <svg class="dock" viewBox="0 0 60.4393 8.07221" preserveAspectRatio="none" aria-hidden="true">
+        <rect width="60.4393" height=".07221" rx="1.96691" fill="black" fill-opacity="0.14"></rect>
+        {
+          DOCK_ICONS.map((x) => (
+            <rect
+              opacity="0.2"
+              x={x}
+              y="0.983547"
+              width="6.1053"
+              height="6.1053"
+              rx="1.96691"
+              fill="#D9D9D9"
+            />
+          ))
+        }
+        <line
+          opacity="0.1"
+          x1={DOCK_DIVIDER_X}
+          y1="1.03925"
+          x2={DOCK_DIVIDER_X}
+          y2="7.03314"
+          stroke="white"
+          stroke-width="0.196691"></line>
+        <rect
+          opacity="0.2"
+          x={DOCK_TRAILING_ICON}
+          y="0.983547"
+          width="6.1053"
+          height="6.1053"
+          rx="1.96691"
+          fill="#D9D9D9"></rect>
+      </svg>
+    </div>
+  </div>
+
+  <svg class="stand" viewBox="0 0 56.3486 34.2646" preserveAspectRatio="none" aria-hidden="true">
+    <path
+      d="M56.3486 34.2646H0V0H19.3252C19.3303 4.85574 23.2681 8.79004 28.125 8.79004C32.9819 8.79003 36.9197 4.85574 36.9248 0H56.3486V34.2646Z"
+      fill={`url(#${standGradientId})`}></path>
+    <defs>
+      <linearGradient
+        id={standGradientId}
+        x1="28.1743"
+        y1="-37.409"
+        x2="28.1743"
+        y2="34.2646"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#000000"></stop>
+        <stop offset=".8" stop-color="#000000" stop-opacity=".2"></stop>
+        <stop offset="1" stop-color="#000000" stop-opacity="0"></stop>
+      </linearGradient>
+    </defs>
+  </svg>
+</div>

@@ -1,0 +1,31 @@
+---
+import "../styles/components/hero.css";
+import SpatialDisplays from "./SpatialDisplays.astro";
+import DrumMachine from "./DrumMachine.astro";
+---
+
+<section class="mx-auto w-full max-w-[980px] px-5 sm:px-6">
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <!-- App Audio Routing -->
+    <article
+      class="relative flex min-h-[273px] flex-col overflow-hidden rounded-card bg-surface p-6"
+    >
+      <header class="max-w-[420px] pb-4">
+        <h2 class="text-[28px] font-semibold tracking-[-0.02em] text-white sm:text-[32px]">
+          App Audio Routing
+        </h2>
+        <p class="mt-2 text-[14px] leading-[1.35] tracking-[-0.01em] text-muted">
+          Everything plays across both panels in stereo by default. Per-app, you can have the sound
+          follow a window to whichever display it sits on.
+        </p>
+      </header>
+
+      <div class="mt-auto">
+        <SpatialDisplays />
+      </div>
+    </article>
+
+    <!-- Custom audio driver — full-bleed drum sequencer -->
+    <DrumMachine />
+  </div>
+</section>

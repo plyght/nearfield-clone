@@ -1,0 +1,38 @@
+---
+import Legal from "../layouts/Legal.astro";
+
+// Placeholder copy — replace with your own terms before publishing.
+const sections = [
+  {
+    id: "licence",
+    heading: "Your licence",
+    body: "State what the user is permitted to do with the software and on how many machines.",
+  },
+  {
+    id: "acceptable-use",
+    heading: "Acceptable use",
+    body: "Set out any restrictions on redistribution, reverse engineering, or resale.",
+  },
+  {
+    id: "warranty",
+    heading: "Warranty and liability",
+    body: "Describe the warranty position and the limits of liability that apply.",
+  },
+  {
+    id: "changes",
+    heading: "Changes to these terms",
+    body: "Explain how updates to the terms are published and when they take effect.",
+  },
+];
+---
+
+<Legal
+  title="Terms — Nearfield"
+  description="The terms that apply to using the Nearfield app and website."
+  heading="Terms"
+  intro="Placeholder terms — replace with your own text before publishing."
+  eyebrow="Plain language"
+  highlightHeading="Short, readable, and free of surprises."
+  highlightBody="Summarise the agreement in a sentence or two here."
+  sections={sections}
+/>
