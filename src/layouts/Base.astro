@@ -1,7 +1,6 @@
 ---
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
-import Footer from "../components/Footer.astro";
 
 interface Props {
   title: string;
@@ -15,7 +14,7 @@ const ogImage = new URL("/og/nearfield-og.png", Astro.site).href;
 ---
 
 <!doctype html>
-<html lang="en" data-intro={intro ? "" : undefined}>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -80,8 +79,16 @@ const ogImage = new URL("/og/nearfield-og.png", Astro.site).href;
     >
       Skip to content
     </a>
-    <Nav />
-    <slot />
-    <Footer />
+    <!-- The intro animations are written as `[data-intro] > header` and
+         `[data-intro] main > section`, so this wrapper has to be the direct
+         parent of both. Its pt-2 is also the page's top offset. -->
+    <div
+      id="top"
+      class="relative min-h-screen w-full overflow-x-clip pt-2"
+      data-intro={intro ? "" : undefined}
+    >
+      <Nav />
+      <slot />
+    </div>
   </body>
 </html>

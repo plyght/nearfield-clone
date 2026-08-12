@@ -75,17 +75,29 @@ const DETAILS = [
       </ul>
     </header>
 
-    <!-- Static mock of the menu bar app's settings window. -->
-    <div class="app-stage" aria-hidden="true">
-      <div class="settings-window">
-        <div class="settings-header">
+    <!-- Settings-window mock, extracted verbatim from the source so the
+         .app-window / .app-header rules and the settings wave variant apply.
+         .app-window is 765px tall inside a 225px .app-stage; the scroll
+         progress variable travels it upward through that crop. -->
+    <div class="app-stage">
+      <div
+        class="app-window"
+        role="img"
+        aria-label="Scrolling preview of the Nearfield settings window"
+      >
+        <div class="app-header" data-wave-host data-wave-variant="settings" aria-hidden="true">
+          <canvas data-wave class="wave-canvas absolute inset-0 h-full w-full" aria-hidden="true"
+          ></canvas>
           <div class="header-controls">
-            <div class="traffic-lights"><i></i><i></i><i></i></div>
-            <div class="page-indicator"><i></i><i></i></div>
+            <div class="traffic-lights">
+              <i></i><i></i><i></i>
+            </div>
+            <div class="page-indicator">
+              <i></i><i></i><i></i>
+            </div>
           </div>
           <strong>Settings</strong>
         </div>
-
         <div class="settings-content">
           <div class="settings-group">
             <div class="settings-row">
@@ -101,7 +113,6 @@ const DETAILS = [
               <span class="mac-switch on"><i></i></span>
             </div>
           </div>
-
           <p class="settings-label">Sound</p>
           <div class="settings-group">
             <div class="settings-row balance-row">
@@ -119,7 +130,6 @@ const DETAILS = [
               <strong>Arrangement</strong><span class="mac-button">Swap Channels</span>
             </div>
           </div>
-
           <div class="settings-group routing-group">
             <div class="settings-row detail-row">
               <div>
@@ -131,18 +141,33 @@ const DETAILS = [
             </div>
             <div class="settings-divider"></div>
             <div class="settings-row app-row selected">
-              <span class="app-icon"><img src="/icon-safari.png" alt="" /><em>R</em></span>
-              <strong>Safari</strong>
+              <span class="app-icon"
+                ><img
+                  src="/icon-safari.png"
+                  alt=""
+                  width="26"
+                  height="26"
+                  loading="lazy"
+                  decoding="async"
+                /><em>R</em></span
+              ><strong>Safari</strong>
               <span class="mac-switch on"><i></i></span>
             </div>
             <div class="settings-divider"></div>
             <div class="settings-row app-row">
-              <span class="app-icon"><img src="/icon-appletv.png" alt="" /><em>L</em></span>
-              <strong>Apple TV</strong>
+              <span class="app-icon"
+                ><img
+                  src="/icon-appletv.png"
+                  alt=""
+                  width="26"
+                  height="26"
+                  loading="lazy"
+                  decoding="async"
+                /><em>L</em></span
+              ><strong>Apple TV</strong>
               <span class="mac-switch on"><i></i></span>
             </div>
           </div>
-
           <p class="settings-label">Driver</p>
           <div class="settings-group">
             <div class="settings-row">
@@ -151,11 +176,10 @@ const DETAILS = [
             </div>
             <div class="settings-divider"></div>
             <div class="settings-row">
-              <strong>Remove Virtual Drivers</strong>
-              <span class="mac-button danger">Uninstall</span>
+              <strong>Remove Virtual Drivers</strong><span class="mac-button danger">Uninstall</span
+              >
             </div>
           </div>
-
           <div class="about-row">
             <small>Version 0.1.37</small><span class="mac-button">↻ Check for Updates</span>
           </div>
