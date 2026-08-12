@@ -177,6 +177,9 @@
 .app-header strong {
   position: relative;
   z-index: 3;
+  /* The header sits on the wave canvas, which is vivid in both themes, so this
+     stays white rather than inheriting the window's label colour. */
+  color: #fff;
   font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.01em;
