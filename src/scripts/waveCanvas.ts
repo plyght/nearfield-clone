@@ -12,17 +12,24 @@ interface WaveLayer {
   verticalPosition: number;
   phaseOffset: number;
   overscanFraction: number;
+  /** Cycles per second for this stroke. Each layer accumulates its own phase. */
+  speed: number;
 }
 
 interface WavePreset {
   base: [number, number, number];
-  speed: number;
   waves: [WaveLayer, WaveLayer];
 }
 
+/**
+ * The trailing stroke runs at this multiple of the leading one. An irrational-ish
+ * ratio keeps the two from re-aligning on a short cycle, so the interference
+ * between them never visibly loops.
+ */
+const DRIFT_RATIO = 1.618;
+
 const IDLE: WavePreset = {
   base: [0.949, 0.314, 0.047],
-  speed: 0.055,
   waves: [
     {
       opacity: 0.85,
@@ -33,6 +40,7 @@ const IDLE: WavePreset = {
       verticalPosition: 0.499,
       phaseOffset: -0.48,
       overscanFraction: 238 / 939,
+      speed: 0.055,
     },
     {
       opacity: 0.329,
@@ -43,13 +51,13 @@ const IDLE: WavePreset = {
       verticalPosition: 0.499,
       phaseOffset: -3.62,
       overscanFraction: 238 / 939,
+      speed: 0.055 * DRIFT_RATIO,
     },
   ],
 };
 
 const HOVER: WavePreset = {
   base: [1, 0.353, 0.078],
-  speed: 1.093,
   waves: [
     {
       opacity: 0.85,
@@ -60,6 +68,7 @@ const HOVER: WavePreset = {
       verticalPosition: 0.499,
       phaseOffset: -0.48,
       overscanFraction: 83.3 / 939,
+      speed: 1.093,
     },
     {
       opacity: 0.329,
@@ -70,6 +79,7 @@ const HOVER: WavePreset = {
       verticalPosition: 0.499,
       phaseOffset: -3.62,
       overscanFraction: 83.3 / 939,
+      speed: 1.093 * DRIFT_RATIO,
     },
   ],
 };
@@ -100,7 +110,6 @@ const FRAGMENT_SHADER = `
 precision highp float;
 
 uniform vec2  uRes;
-uniform float uPhase;
 uniform vec3  uBase;
 uniform vec3  uInk;
 uniform float uMaxBlur;
@@ -116,6 +125,7 @@ uniform float uFalloff[2];
 uniform float uVPos[2];
 uniform float uPhaseOff[2];
 uniform float uOverscan[2];
+uniform float uPhase[2];
 
 const float TAU = 6.2831853071795864;
 
@@ -136,13 +146,14 @@ float hash21(vec2 p) {
 // across the width to emulate the app's variable-radius progressive blur.
 float coverage(vec2 frag, float W, float H,
                float O, float lineW, float freq, float amp,
-               float falloff, float vpos, float phaseOff, float opacity) {
+               float falloff, float vpos, float phaseOff, float opacity,
+               float phase) {
   float T = W + 2.0 * O;
   float midY = H * vpos;
   float A = H * amp;
   float k = freq * TAU / T;
   float x = frag.x;
-  float angle = (x + O) * k - uPhase - phaseOff;
+  float angle = (x + O) * k - phase - phaseOff;
   float s = sin(angle);
   float c = cos(angle);
   float visible = clamp(x / W, 0.0, 1.0);
@@ -164,8 +175,8 @@ void main() {
   float H = uRes.y;
   vec2 frag = vec2(gl_FragCoord.x, H - gl_FragCoord.y); // top-left origin
 
-  float a0 = coverage(frag, W, H, uOverscan[0], uLineW[0], uFreq[0], uAmp[0], uFalloff[0], uVPos[0], uPhaseOff[0], uOpacity[0]);
-  float a1 = coverage(frag, W, H, uOverscan[1], uLineW[1], uFreq[1], uAmp[1], uFalloff[1], uVPos[1], uPhaseOff[1], uOpacity[1]);
+  float a0 = coverage(frag, W, H, uOverscan[0], uLineW[0], uFreq[0], uAmp[0], uFalloff[0], uVPos[0], uPhaseOff[0], uOpacity[0], uPhase[0]);
+  float a1 = coverage(frag, W, H, uOverscan[1], uLineW[1], uFreq[1], uAmp[1], uFalloff[1], uVPos[1], uPhaseOff[1], uOpacity[1], uPhase[1]);
   float a = a0 + a1 * (1.0 - a0); // source-over composite of the two strokes
 
   vec3 col = mix(uBase, softLight(uBase, uInk), a);
@@ -277,7 +288,7 @@ export function initWaveCanvas(canvas: HTMLCanvasElement, host: HTMLElement): ()
     canvas.width = nextWidth;
     canvas.height = nextHeight;
     gl!.viewport(0, 0, nextWidth, nextHeight);
-    if (!running) renderAt(phase);
+    if (!running) repaint();
   }
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -293,7 +304,7 @@ export function initWaveCanvas(canvas: HTMLCanvasElement, host: HTMLElement): ()
     return 1 - Math.pow(1 - t, 3);
   }
 
-  let phase = 0;
+  const phases = new Float32Array(2);
   let hoverMix = 0;
   let hoverTarget = 0;
   let lastFrame = performance.now();
@@ -324,7 +335,7 @@ export function initWaveCanvas(canvas: HTMLCanvasElement, host: HTMLElement): ()
     baseColor[2] = lerp(idleBase[2], hoverBase[2], mix);
 
     gl!.uniform2f(uRes, widthPx, heightPx);
-    gl!.uniform1f(uPhase, phase);
+    gl!.uniform1fv(uPhase, phases);
     gl!.uniform3fv(uBase, baseColor);
     gl!.uniform1f(uMaxBlur, MAX_BLUR * scale);
     gl!.uniform1fv(uOpacity, opacity);
@@ -338,8 +349,8 @@ export function initWaveCanvas(canvas: HTMLCanvasElement, host: HTMLElement): ()
     gl!.drawArrays(gl!.TRIANGLES, 0, 3);
   }
 
-  function renderAt(nextPhase: number): void {
-    phase = nextPhase;
+  /** Redraw without advancing time (resize, reduced-motion, first paint). */
+  function repaint(): void {
     draw();
   }
 
@@ -347,8 +358,12 @@ export function initWaveCanvas(canvas: HTMLCanvasElement, host: HTMLElement): ()
     const delta = Math.min(Math.max((now - lastFrame) / 1000, 0), 0.1);
     lastFrame = now;
     hoverMix += (hoverTarget - hoverMix) * (1 - Math.exp(-delta / HOVER_SMOOTHING));
-    const speed = lerp(IDLE.speed, HOVER.speed, hoverMix);
-    phase += delta * speed * TAU;
+    // Each stroke carries its own speed, so they drift apart instead of
+    // moving as one rigid shape.
+    for (let i = 0; i < 2; i++) {
+      const speed = lerp(IDLE.waves[i].speed, HOVER.waves[i].speed, hoverMix);
+      phases[i] += delta * speed * TAU;
+    }
     draw();
     if (Math.abs(hoverTarget - hoverMix) < 0.001) hoverMix = hoverTarget;
     rafId = requestAnimationFrame(frame);
@@ -430,7 +445,7 @@ export function initWaveCanvas(canvas: HTMLCanvasElement, host: HTMLElement): ()
   const onReducedMotionChange = () => {
     if (reducedMotion.matches) {
       stop();
-      renderAt(phase);
+      repaint();
     } else {
       start();
     }
@@ -438,7 +453,7 @@ export function initWaveCanvas(canvas: HTMLCanvasElement, host: HTMLElement): ()
   reducedMotion.addEventListener?.("change", onReducedMotionChange);
 
   resize();
-  renderAt(0);
+  repaint();
   start();
 
   return function destroy(): void {
